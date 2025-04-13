@@ -219,15 +219,15 @@ static void MX_GPIO_Init(void)
 /* USER CODE BEGIN 4 */
 void HAL_UART_RxCpltCallback(UART_HandleTypeDef *huart)
 {
-	const uint8_t *fallo = "Fallo\r";
-	const uint8_t *acierto = "Acierto\r";
-	uint8_t buffer[10] = { 0 };
+	const uint8_t fallo[] = "Fallo\r";
+	const uint8_t acierto[] = "Acierto\r";
+	uint8_t buffer[10];
 
-    if (strcmp(UART1_rxBuffer, "ABCDEFGHI\r") == 0) {
-    	strcpy(&buffer, acierto);
+    if (strcmp((char *)UART1_rxBuffer, "ABCDEFGHI\r") == 0) {
+    	strcpy((char *)buffer, (char *)acierto);
     }
     else {
-    	strcpy(&buffer, fallo);
+    	strcpy((char *)buffer, (char *)fallo);
     }
     HAL_UART_Transmit(&huart1, buffer, 10, 100);
     HAL_UART_Receive_DMA(&huart1, UART1_rxBuffer, 10);
